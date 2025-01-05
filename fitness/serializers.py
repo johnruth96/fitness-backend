@@ -1,10 +1,10 @@
 from rest_framework import serializers
 
-from fitness.models import Workout, Condition, MuscleGroup, Discipline
+from fitness.models import Workout, Condition, MuscleGroup, Activity
 
 
 class WorkoutSerializer(serializers.ModelSerializer):
-    discipline_str = serializers.StringRelatedField(source="discipline")
+    activity_str = serializers.StringRelatedField(source="activity")
     conditions_str = serializers.StringRelatedField(many=True, source="conditions", required=False)
     muscle_groups_str = serializers.StringRelatedField(many=True, source="muscle_groups", required=False)
 
@@ -13,7 +13,7 @@ class WorkoutSerializer(serializers.ModelSerializer):
         fields = '__all__'
         extra_kwargs = dict(
             date=dict(input_formats=["%d.%m.%Y, %H:%M"]),
-            discipline=dict(required=True),
+            activity=dict(required=True),
         )
 
 
@@ -29,12 +29,7 @@ class ConditionSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class DisciplineSerializer(serializers.ModelSerializer):
+class ActivitySerializer(serializers.ModelSerializer):
     class Meta:
-        model = Discipline
+        model = Activity
         fields = '__all__'
-
-# class GoalSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Goal
-#         fields = '__all__'

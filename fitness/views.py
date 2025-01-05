@@ -6,8 +6,8 @@ from rest_framework.decorators import action
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 
-from fitness.models import Workout, MuscleGroup, Discipline, Condition
-from fitness.serializers import MuscleGroupSerializer, WorkoutSerializer, DisciplineSerializer, ConditionSerializer
+from fitness.models import Workout, MuscleGroup, Activity, Condition
+from fitness.serializers import MuscleGroupSerializer, WorkoutSerializer, ActivitySerializer, ConditionSerializer
 
 
 class StandardResultsSetPagination(PageNumberPagination):
@@ -75,28 +75,22 @@ class WorkoutViewSet(viewsets.ModelViewSet):
         return Response(dates)
 
 
-class MuscleGroupViewSet(viewsets.ModelViewSet):
+class MuscleGroupViewSet(viewsets.ReadOnlyModelViewSet):
     model = MuscleGroup
     serializer_class = MuscleGroupSerializer
     queryset = MuscleGroup.objects.all()
     permission_classes = [permissions.IsAuthenticated]
 
 
-class ConditionViewSet(viewsets.ModelViewSet):
+class ConditionViewSet(viewsets.ReadOnlyModelViewSet):
     model = Condition
     serializer_class = ConditionSerializer
     queryset = Condition.objects.all()
     permission_classes = [permissions.IsAuthenticated]
 
 
-class DisciplineViewSet(viewsets.ModelViewSet):
-    model = Discipline
-    serializer_class = DisciplineSerializer
-    queryset = Discipline.objects.all()
+class ActivityViewSet(viewsets.ReadOnlyModelViewSet):
+    model = Activity
+    serializer_class = ActivitySerializer
+    queryset = Activity.objects.all()
     permission_classes = [permissions.IsAuthenticated]
-
-# class GoalViewSet(viewsets.ModelViewSet):
-#     model = Goal
-#     serializer_class = GoalSerializer
-#     queryset = Goal.objects.all()
-#     permission_classes = [permissions.IsAuthenticated]
